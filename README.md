@@ -1,1 +1,1 @@
-# kafka-poc
+# kafka-examples
