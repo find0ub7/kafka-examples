@@ -1,3 +1,5 @@
 spring:
   kafka:
-
+    bootstrap-servers:
+      - localhost:29092
+      - localhost:39092
