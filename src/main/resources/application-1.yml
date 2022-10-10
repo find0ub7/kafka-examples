@@ -1,0 +1,10 @@
+spring:
+  kafka:
+    bootstrap-servers:
+      - localhost:29092
+      - localhost:39092
+    consumer:
+      group-id: group-1
+    listener:
+      ack-mode: RECORD #default eh batch
+#      concurrency: 2
