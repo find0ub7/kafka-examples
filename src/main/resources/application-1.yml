@@ -1,15 +1,16 @@
 server:
-  port: 8080
+  port: 8082
 
 spring:
   kafka:
     bootstrap-servers:
-      - localhost:9092
-      - localhost:29092
+      - localhost:9093
+      - localhost:29093
     consumer:
-      group-id: group-1
+      group-id: group-x
       properties:
         allow.auto.create.topics: false
     listener:
-      ack-mode: RECORD #default eh batch
+      missing-topics-fatal: true
+#      ack-mode: RECORD #default eh batch
 #      concurrency: 2

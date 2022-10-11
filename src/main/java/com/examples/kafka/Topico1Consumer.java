@@ -24,6 +24,7 @@ public class Topico1Consumer {
                 offset,
                 key,
                 message);
+//        throw new RuntimeException("some error");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
