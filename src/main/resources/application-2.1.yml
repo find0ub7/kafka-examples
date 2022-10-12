@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+spring:
+  kafka:
+    bootstrap-servers:
+      - localhost:9093
+    consumer:
+      group-id: kafka-examples-group
+      properties:
+        allow.auto.create.topics: false
+    listener:
+      missing-topics-fatal: true
+      ack-mode: RECORD #default eh batch

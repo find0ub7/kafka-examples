@@ -9,8 +9,8 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Slf4j
+@Profile("!1")
 @Component
-@Profile("1")
 public class Topico1Consumer {
 
     @KafkaListener(topics = "topic-1")
@@ -24,7 +24,6 @@ public class Topico1Consumer {
                 offset,
                 key,
                 message);
-//        throw new RuntimeException("some error");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {

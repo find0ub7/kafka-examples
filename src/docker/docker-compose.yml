@@ -1,47 +1,48 @@
-version: '2'
+version: "3"
+
+networks:
+  kafka-examples:
+    driver: bridge
+
 services:
   zookeeper-1:
-    image: confluentinc/cp-zookeeper:latest
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
+    image: 'bitnami/zookeeper:latest'
+    hostname: zookeeper-1
     ports:
-      - 22181:2181
-
-  zookeeper-2:
-    image: confluentinc/cp-zookeeper:latest
+      - '2181:2181'
+    networks:
+      - kafka-examples
     environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - 32181:2181
+      - ALLOW_ANONYMOUS_LOGIN=yes
 
   kafka-1:
-    image: confluentinc/cp-kafka:latest
+    image: 'bitnami/kafka:latest'
+    hostname: kafka-1
+    ports:
+      - '9092:9092'
+      - '9093:9093'
+      - '5556:5556'
+    networks:
+      - kafka-examples
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-1:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka-1:9092,EXTERNAL://localhost:9093
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
+      - JMX_PORT=5556
     depends_on:
       - zookeeper-1
-      - zookeeper-2
 
+  kafka-manager:
+    container_name: kafka-manager
+    image: ghcr.io/eshepelyuk/dckr/cmak-3.0.0.5:latest
+    restart: always
     ports:
-      - 29092:29092
+      - "9000:9000"
+    networks:
+      - kafka-examples
     environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2181,zookeeper-2:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:9092,PLAINTEXT_HOST://localhost:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  kafka-2:
-    image: confluentinc/cp-kafka:latest
-    depends_on:
-      - zookeeper-1
-      - zookeeper-2
-    ports:
-      - 39092:39092
-    environment:
-      KAFKA_BROKER_ID: 2
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2181,zookeeper-2:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:9092,PLAINTEXT_HOST://localhost:39092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      ZK_HOSTS: "zookeeper-1:2181"

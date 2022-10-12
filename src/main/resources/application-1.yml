@@ -1,16 +1,12 @@
 server:
-  port: 8082
+  port: 8081
 
 spring:
   kafka:
     bootstrap-servers:
       - localhost:9093
       - localhost:29093
-    consumer:
-      group-id: group-x
+    producer:
       properties:
-        allow.auto.create.topics: false
-    listener:
-      missing-topics-fatal: true
-#      ack-mode: RECORD #default eh batch
-#      concurrency: 2
+        request.timeout.ms: 5000 #default eh 30000
+        delivery.timeout.ms: 5000 #default eh 120000 (e precisa ser maior ou igual que linger.ms + request.timeout.ms)

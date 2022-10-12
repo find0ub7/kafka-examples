@@ -49,6 +49,6 @@ public class KafkaController {
     }
 
     private FailureCallback handleFailure() {
-        return throwable -> log.error("Fail to send message: {}", throwable);
+        return throwable -> log.error("Fail to send message:", throwable);
     }
 }

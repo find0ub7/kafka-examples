@@ -10,10 +10,8 @@ services:
     hostname: zookeeper-1
     ports:
       - '2181:2181'
-
     networks:
       - kafka-examples
-#    network_mode: host
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
 
@@ -26,7 +24,6 @@ services:
       - '5556:5556'
     networks:
       - kafka-examples
-#    network_mode: host
     environment:
       - KAFKA_BROKER_ID=1
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-1:2181
@@ -66,19 +63,7 @@ services:
     restart: always
     ports:
       - "9000:9000"
-#    network_mode: host
     networks:
       - kafka-examples
     environment:
       ZK_HOSTS: "zookeeper-1:2181"
-
-#  kafdrop:
-#    image: obsidiandynamics/kafdrop:latest
-#    networks:
-#      - kafka-examples
-#    depends_on:
-#      - kafka-1
-#    ports:
-#      - "9000:9000"
-#    environment:
-#      KAFKA_BROKERCONNECT: kafka-1:9092
