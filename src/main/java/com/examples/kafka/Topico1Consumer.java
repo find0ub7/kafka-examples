@@ -25,7 +25,7 @@ public class Topico1Consumer {
                 key,
                 message);
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

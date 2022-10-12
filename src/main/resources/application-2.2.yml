@@ -12,4 +12,4 @@ spring:
     listener:
       missing-topics-fatal: true
       ack-mode: RECORD #default eh batch
-      concurrency: 10
+      concurrency: 2
