@@ -1,4 +1,4 @@
-package com.examples.kafka;
+package com.examples.kafka.clusters.multiple;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -9,17 +9,17 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Profile("!1")
+@Profile("3")
 @Component
-public class Topico1Consumer {
+public class Cluster1KafkaConsumer {
 
-    @KafkaListener(topics = "topic-1")
+    @KafkaListener(topics = "topic-1-1", containerFactory = "cluster1KafkaListenerContainerFactory")
     public void onMessage(
             @Header(value = KafkaHeaders.RECEIVED_PARTITION_ID) String partition,
             @Header(KafkaHeaders.OFFSET) String offset,
             @Header(name = KafkaHeaders.RECEIVED_MESSAGE_KEY, required = false) String key,
             @Payload String message) {
-        log.info("Message received on partition {}, offset {} with key {}: {}",
+        log.info("[cluster1] Message received on partition {}, offset {} with key {}: {}",
                 partition,
                 offset,
                 key,

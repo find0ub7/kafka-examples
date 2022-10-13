@@ -1,0 +1,24 @@
+server:
+  port: 8081
+
+spring:
+  kafka:
+    cluster1:
+      bootstrap-servers:
+        - localhost:9093
+      consumer:
+        group-id: kafka-examples-group
+        properties:
+          allow.auto.create.topics: false
+      listener:
+        missing-topics-fatal: true
+
+    cluster2:
+      bootstrap-servers:
+        - localhost:29093
+      consumer:
+        group-id: kafka-examples-group
+        properties:
+          allow.auto.create.topics: false
+      listener:
+        missing-topics-fatal: true

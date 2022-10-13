@@ -5,8 +5,9 @@ Cenarios (foram divididos em profiles)
   - utilizar docker-compose-1.yml
   - criar topic-1 com 2 particoes e fator de replicacao 2
     - ha um problema na config do broker 2 que impede o envio da mensagem
+
 - 2: lag
-  - utilizar docker-compose.yml
+  - utilizar docker-compose-2.yml
   - criar topic-1 com 10 particoes e fator de replicacao 1
   - utilizar script k6 para produzir mensagens constantes (2 rps) - consumer esta com sleep de 1s
     - 2.1: solucao aumentando o numero de concorrencia usando novas instancias de consumidores 
@@ -16,8 +17,12 @@ Cenarios (foram divididos em profiles)
       - nao houver particoes disponiveis para o paralelismo
       - se a mensagem for enviada somente para a mesma particao (atencao a key ou a partition no producer)
     - nao adianta ter mais threads(concurrency) do que particoes - vao ficar ociosas
+
 - [Opcional] 3: configurando multiplos clusters
   - utilizar docker-compose-3.yml
+  - configurar 2 clusters no kafka manager (cmak)
+  - criar topic-1-1 no cluster1 com 10 particoes e fator de replicacao 1
+  - criar topic-2-1 no cluster2 com 10 particoes e fator de replicacao 1
     - 3.1: produtor e consumidor em clusters diferente
     - 3.2: produtores de clusters diferentes
 
@@ -25,3 +30,10 @@ Como alterar sobrescrever a configuracao do application via linha de comando:
 mvn spring-boot:run -Dspring-boot.run.profiles=1
 mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8082
 mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8083
+
+
+Complementos:
+- spring.kafka.consumer.auto-offset-reset: 
+  - earliest: which means that the consumers will start reading messages from the earliest one available when there is no existing offset for that consumer.
+- @SendTo
+- @RetryableTopic
