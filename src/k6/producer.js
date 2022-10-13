@@ -1,7 +1,4 @@
 import exec from 'k6/execution';
-import {
-  SharedArray
-} from 'k6/data';
 import http from 'k6/http';
 import {
   check,
@@ -15,11 +12,12 @@ import {
 //k6 executor options
 const rpm = 120; //amount of request per minute
 const testDuration = '30m'; //how long the test will run
+const RANDOM_PARTITION = true; //true or false
 var number = 1; //message identifier
 
 const TOPIC_CONFIGURATION = {
     topic: "topic-1",
-    key: "kafka-examples-key",
+    key: "same-key",
     partition: 0
 };
 
@@ -63,7 +61,9 @@ export const options = {
 };
 
 function getPath() {
-    return CONFIGURATION.host + ":" + CONFIGURATION.port + CONFIGURATION.paths.topic;
+    return RANDOM_PARTITION
+        ? CONFIGURATION.host + ":" + CONFIGURATION.port + CONFIGURATION.paths.topic
+        : CONFIGURATION.host + ":" + CONFIGURATION.port + CONFIGURATION.paths.topicKeyPartition;
 }
 
 function sendMessage() {
