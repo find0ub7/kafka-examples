@@ -9,7 +9,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Profile("2")
+@Profile({"2.1", "2.2"})
 @Component
 public class KafkaConsumer {
 

@@ -67,12 +67,13 @@ function getPath() {
 }
 
 function sendMessage() {
-  const res = http.post(getPath(), CONFIGURATION.message + new Date(), {})
+  var message = CONFIGURATION.message + new Date();
+  const res = http.post(getPath(), message, {})
 
   if (!check(res, {
       'Mensagem enviada': (r) => r.status == 200
     })) {
-    fail('falha ao enviar mensagem id ' + id)
+    fail('falha ao enviar mensagem: ' + message)
   }
 }
 
