@@ -1,5 +1,11 @@
 # kafka-examples
 
+Docker composes:
+- default: 1 cmak(kafka manager) e 1 cluster com 2 kafka brokers e 1 zookeeper
+- 1: 1 cmak e 1 cluster com 2 kafka brokers, 1 zookeeper - com erro de configuracao no kafka broker 2
+- 2: 1 cmak e 1 cluster com 1 kafka broker, 1 zookeeper
+- 3: 1 cmak e 2 clusters cada 1 com com 1 kafka broker e 1 zookeeper
+
 Cenarios (foram divididos em profiles)
 - 1: falha no producer, callback de error
   - utilizar docker-compose-1.yml
@@ -31,9 +37,6 @@ mvn spring-boot:run -Dspring-boot.run.profiles=1
 mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8082
 mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8083
 
-
 Complementos:
-- spring.kafka.consumer.auto-offset-reset: 
-  - earliest: which means that the consumers will start reading messages from the earliest one available when there is no existing offset for that consumer.
 - @SendTo
 - @RetryableTopic
