@@ -40,3 +40,6 @@ mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8083
 Complementos:
 - @SendTo
 - @RetryableTopic
+
+Referencias:
+https://docs.spring.io/spring-kafka/reference/html/#container-props
