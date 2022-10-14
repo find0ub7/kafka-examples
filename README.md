@@ -23,6 +23,8 @@ Cenarios (foram divididos em profiles)
       - nao houver particoes disponiveis para o paralelismo
       - se a mensagem for enviada somente para a mesma particao (atencao a key ou a partition no producer)
     - nao adianta ter mais threads(concurrency) do que particoes - vao ficar ociosas
+    - exemplo do auto-offset-reset: earliest:
+      - consumir mensagens previamente existentes
 
 - [Opcional] 3: configurando multiplos clusters
   - utilizar docker-compose-3.yml
