@@ -71,7 +71,7 @@ function sendMessage() {
   const res = http.post(getPath(), message, {})
 
   if (!check(res, {
-      'Mensagem enviada': (r) => r.status == 200
+      'Mensagem enviada': (r) => r.status == 202
     })) {
     fail('falha ao enviar mensagem: ' + message)
   }

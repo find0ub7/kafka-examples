@@ -1,0 +1,21 @@
+server:
+  port: 8081
+
+spring:
+  kafka:
+    bootstrap-servers:
+      - localhost:9093
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: kafka-examples-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      auto-offset-reset: earliest #default latest - whether to consume from the beginning of a topic partition or to only consume new messages when there is no initial offset for the consumer group
+      properties:
+        allow.auto.create.topics: false
+        spring.json.trusted.packages: "*"
+    listener:
+      missing-topics-fatal: true
+      ack-mode: RECORD #default eh batch

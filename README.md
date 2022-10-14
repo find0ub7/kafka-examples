@@ -32,6 +32,12 @@ Cenarios (foram divididos em profiles)
     - 3.1: produtor e consumidor em clusters diferente
     - 3.2: produtores de clusters diferentes
 
+- [Opcional] 4: utilizando eventos/mensagens como json
+  - utilizar docker-compose-2.yml
+  - criar topic-1 com 10 particoes e fator de replicacao 1
+  - postar mensagem no topic-1 no formato de json
+  - postar mensagem com erro de formatacao no topic-1 no formato de json
+
 Como alterar sobrescrever a configuracao do application via linha de comando:
 mvn spring-boot:run -Dspring-boot.run.profiles=1
 mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8082

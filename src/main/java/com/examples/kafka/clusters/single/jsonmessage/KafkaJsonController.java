@@ -1,4 +1,4 @@
-package com.examples.kafka.clusters.single;
+package com.examples.kafka.clusters.single.jsonmessage;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,17 +11,17 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.SuccessCallback;
 import org.springframework.web.bind.annotation.*;
 
-@Profile("!3 & !4")
+@Profile("4")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class KafkaController {
+public class KafkaJsonController {
 
-    private final KafkaTemplate<String, String> producer;
+    private final KafkaTemplate<String, SomeMessage> producer;
 
     @PostMapping("/topics/{topic}/messages")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void sendToTopic(@PathVariable String topic, @RequestBody String message) {
+    public void sendToTopic(@PathVariable String topic, @RequestBody SomeMessage message) {
         handleCallback(producer.send(topic, message));
     }
 
@@ -29,7 +29,7 @@ public class KafkaController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void sendToTopicAtKey(@PathVariable String topic,
                                  @PathVariable String key,
-                                 @RequestBody String message) {
+                                 @RequestBody SomeMessage message) {
         handleCallback(producer.send(topic, key, message));
     }
 
@@ -38,16 +38,16 @@ public class KafkaController {
     public void sendToTopicAtKeyAndPartition(@PathVariable String topic,
                                              @PathVariable String key,
                                              @PathVariable Integer partition,
-                                             @RequestBody String message) {
+                                             @RequestBody SomeMessage message) {
         handleCallback(producer.send(topic, partition, key, message));
     }
 
-    private void handleCallback(ListenableFuture<SendResult<String, String>> future) {
+    private void handleCallback(ListenableFuture<SendResult<String, SomeMessage>> future) {
         future.addCallback(handleSuccess(), handleFailure());
     }
 
-    private SuccessCallback<? super SendResult<String, String>> handleSuccess() {
-        return (SuccessCallback<SendResult<String, String>>) successResult ->
+    private SuccessCallback<? super SendResult<String, SomeMessage>> handleSuccess() {
+        return (SuccessCallback<SendResult<String, SomeMessage>>) successResult ->
                 log.info("Message successfully sent: {}", successResult.getProducerRecord());
     }
 
