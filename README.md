@@ -41,9 +41,12 @@ Cenarios (foram divididos em profiles)
   - postar mensagem com erro de formatacao no topic-1 no formato de json
 
 Como alterar sobrescrever a configuracao do application via linha de comando:
-mvn spring-boot:run -Dspring-boot.run.profiles=1
-mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8082
-mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8083
+- via linha de comando:
+  mvn spring-boot:run -Dspring-boot.run.profiles=1
+  mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8082
+  mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8083
+- via intellij (run/debug) - add vm options:
+  -Dspring.profiles.active=2.1 -Dserver.port=8081
 
 Complementos:
 - @SendTo
