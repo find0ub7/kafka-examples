@@ -11,7 +11,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.SuccessCallback;
 import org.springframework.web.bind.annotation.*;
 
-@Profile("!3 & !4")
+@Profile({"1","2.1", "2.2"})
 @Slf4j
 @RestController
 @RequiredArgsConstructor

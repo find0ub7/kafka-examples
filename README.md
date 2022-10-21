@@ -26,7 +26,7 @@ Cenarios (foram divididos em profiles)
     - exemplo do auto-offset-reset: earliest:
       - consumir mensagens previamente existentes
 
-- [Opcional] 3: configurando multiplos clusters
+- 3: configurando multiplos clusters
   - utilizar docker-compose-3.yml
   - configurar 2 clusters no kafka manager (cmak)
   - criar topic-1-1 no cluster1 com 10 particoes e fator de replicacao 1
@@ -34,11 +34,20 @@ Cenarios (foram divididos em profiles)
     - 3.1: produtor e consumidor em clusters diferente
     - 3.2: produtores de clusters diferentes
 
-- [Opcional] 4: utilizando eventos/mensagens como json
+- 4.1: utilizando eventos/mensagens como json
   - utilizar docker-compose-2.yml
   - criar topic-1 com 10 particoes e fator de replicacao 1
   - postar mensagem no topic-1 no formato de json
   - postar mensagem com erro de formatacao no topic-1 no formato de json
+
+- 4.2: utilizando eventos/mensagens como json + desserialization error handler
+  - utilizar docker-compose-2.yml
+  - criar topic-1 com 10 particoes e fator de replicacao 1
+  - postar mensagem no topic-1 no formato de json
+  - postar mensagem com erro de formatacao no topic-1 no formato de json:
+    - adicionar o header:
+      - key: __TypeId__
+      - value: com.examples.kafka.clusters.single.jsonmessage.SomeMessage
 
 Como alterar sobrescrever a configuracao do application via linha de comando:
 - via linha de comando:

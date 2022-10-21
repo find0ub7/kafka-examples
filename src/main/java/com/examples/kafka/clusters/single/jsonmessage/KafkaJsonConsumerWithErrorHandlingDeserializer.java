@@ -4,14 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Profile({"4.1"})
+@Profile({"4.2"})
 @Component
-public class KafkaJsonConsumer {
+public class KafkaJsonConsumerWithErrorHandlingDeserializer {
 
     @KafkaListener(topics = "topic-1")
     public void onMessage(
